@@ -2,5 +2,15 @@
 
 {% block content %}
 {% include 'base/status.html' %}
-<h1>Ticket Listesi</h1>
+    {% for callcenter in callcenters %}
+        <a href="{% url 'callcenter' callcenter.id %}">{{callcenter.name}}</a>
+    {% endfor %}
+
+
+    {% for problem in problems %}
+        <h1>{{problem.category}}</h1>
+        <h1>{{problem.status}}</h1>
+        <h1>{{problem.date_created}}</h1>
+
+    {% endfor %}
 {% endblock content %}
