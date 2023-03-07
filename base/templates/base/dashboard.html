@@ -1,16 +1,83 @@
 {% extends 'base/main.html' %}
-
 {% block content %}
-{% include 'base/status.html' %}
-    {% for callcenter in callcenters %}
-        <a href="{% url 'callcenter' callcenter.id %}">{{callcenter.name}}</a>
-    {% endfor %}
 
+<br>
+<div class="container">
+    <br>
+    {% include 'base/status.html' %}
 
-    {% for problem in problems %}
-        <h1>{{problem.category}}</h1>
-        <h1>{{problem.status}}</h1>
-        <h1>{{problem.date_created}}</h1>
+    <div class="row">
+        <form action="" method="get">
+            <div class="row">
+                <div class="col-lg-2 my-2 col-md d-grid" style="height:38px">
+                    {{problem_filter.form.user}}
+                </div>
+                <div class="col-lg-2 my-2 col-md d-grid" style="height:38px">
+                    {{problem_filter.form.category}}
+                </div>
+                <div class="col-lg-2 my-2 col-md d-grid" style="height:38px">
+                    {{problem_filter.form.customer_name}}
+                </div>
+                <div class="col-lg-2 my-2 col-md d-grid" style="height:38px">
+                    {{problem_filter.form.start_date}}
+                </div>
+                <div class="col-lg-2 my-2 col-md d-grid" style="height:38px">
+                    {{problem_filter.form.end_date}}
+                </div>
+                <div class="col-lg-2 my-2 col-md d-grid" style="height:38px">
+                    {{problem_filter.form.status}}
+                </div>
+                <div class="col-lg-2 my-2 col-md d-grid">
+                    <button class="btn btn-primary" type="submit" name="Submit">Ara</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-body" style="height: 700px">
+                <div class=" card card-body overflow-auto pt-0 border-0">
+                    <table class="table table-striped">
+                        <thead class="position-sticky top-0" style="background-color:rgb(189, 205, 214);">
+                            
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Personel</th>
+                                <th scope="col">Kategori</th>
+                                <th scope="col">Kullanıcı Adı</th>
+                                <th scope="col">Tarih</th>
+                                <th scope="col">Açıklama</th>
+                                <th scope="col">Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for problem in problems %}
+                                <tr>
+                                    <td scope="row" style="width: 2%">1</td>
+                                    <td>{{problem.user}}</td>
+                                    <td style="max-width: 300px;">{{problem.category}}</td>
+                                    <td>{{problem.customer_name}}</td>
+                                    <td>{{problem.date_created}}</td>
+                                    <td style="min-width: 300px;"><textarea class="form-control" id="floatingTextarea"readonly>{{problem.description}}</textarea></td>
+                                    <td>{{problem.status}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<footer>
+    <div class="text-lg-start p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        <div class="container">
+            © 2023 Copyright: RollettoBoyz
+        </div>
+    </div>
+</footer>
 
-    {% endfor %}
-{% endblock content %}
+{% endblock %}

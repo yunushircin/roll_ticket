@@ -1,0 +1,40 @@
+<br>
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-body p-4">
+                    <form action="" method='POST'>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md form-floating m-2 d-grid" style='height:50px'>
+                                {{form.customer_name}}
+                            </div>
+                            <div class="col-md form-floating m-2 d-grid" style='height:50px'>
+                                {{form.category}}
+                            </div>
+                            <div class="col-md form-floating m-2 d-grid" style='height:50px'>
+                               {{form.user}}
+                               
+                            </div>
+                            <div class="col-md form-floating m-2 d-grid" style='height:50px'>
+                               {{form.status}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md m-2 d-grid" style='height:100px;'>
+                                <textarea class="form-control" style="resize: none;" name="description" id="exampleFormControlTextarea1" rows="5" placeholder="Açıklama giriniz." required ></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md m-2 d-grid">
+                                <button class="btn btn-primary" type="submit" name="Problem Oluştur">Problem Oluştur</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+        <br>

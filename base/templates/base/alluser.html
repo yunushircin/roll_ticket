@@ -1,0 +1,67 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                    <div class="card card-body p-4" style="height: 400px;">
+
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-floating m-3 d-grid">
+                                {{form.username}}
+                            </div>
+                            <div class="form-floating m-3 d-grid">
+                                {{form.password1}}
+                            </div>
+                            <div class="form-floating m-3 d-grid">
+                                {{form.password2}}
+                            </div>
+                            <div class="form-floating m-3 d-grid">
+                                <button class="btn btn-primary" type="submit" name="Kullanıcı Oluştur">Kullanıcı Oluştur</button>
+                            </div>
+                            <div class="form-floating m-3 d-grid">
+                                {% for messages in messages%}
+                                    <p id='messages'>{{messages}}</p>
+                                {% endfor %}
+                            </div>
+                        </form>
+                    </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card card-body" style="height: 400px;">
+                    <div class=" card card-body overflow-auto pt-0 border-0">
+                        <table class="table table-striped" id="myTable">
+                            <thead class="position-sticky top-0" style="background-color:rgb(189, 205, 214);">
+                                <tr>
+                                    <th scope="col" style="width: 2%"></th>
+                                    <th scope="col ps-1">Kullanıcı Adı</th>
+                                    <th scope="col">Tarih</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        <td scope="row">1</td>
+                                        <td>{{user}}</td>
+                                        <td>{{user.date_joined}}</td>
+                                        <td>
+                                            <i type="button" class="bi-trash" onclick=""></i>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,12 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class CallCenter(models.Model):
-    name = models.CharField(max_length=200, null=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-
-    def __str__(self):
-        return self.name
-    
 class Category(models.Model):
     name = models.CharField(max_length=200, null=True)
 
@@ -18,12 +12,18 @@ class Problem(models.Model):
             ('Açık', 'Açık'), 
             ('Kapalı', 'Kapalı')
             )
+    
+    customer_name = models.CharField(max_length=200,null=True, blank=True)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
-    call_center = models.ForeignKey(CallCenter, null=True, on_delete=models.SET_NULL)
-
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     description = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.category.name
+
+    
 
 
 

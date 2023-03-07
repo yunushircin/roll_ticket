@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
+from .forms import ProblemForm, CategoryForm, AddUserForm
+from .filters import ProblemFilter
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 
 from django.contrib import messages
 
@@ -32,11 +34,12 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-@unauthenticated_user
-def addUser(request):
-    form = UserCreationForm()
+def allUser(request):
+    users = User.objects.all()
+    form = AddUserForm()
+
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = AddUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -44,11 +47,16 @@ def addUser(request):
             group = Group.objects.get(name='user')
             user.groups.add(group)
 
-            messages.success(request, username + 'için hesap oluşturuldu')
+            messages.success(request, username + ' için hesap oluşturuldu')
 
-            return redirect('home')
-    context = {'form':form}
-    return render(request, 'base/addUser.html', context)
+            return redirect('alluser')
+        else:
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+
+    context = {'users':users, 'form':form}
+
+    return render(request, 'base/alluser.html', context)
 
 
 
@@ -56,33 +64,73 @@ def addUser(request):
 @admin_only
 def home(request):
     problems = Problem.objects.all()
-    callcenters = CallCenter.objects.all()
+    users = User.objects.all()
 
-    total_callcenters = callcenters.count()
+    total_users = users.count()
     total_problems = problems.count()
     open = problems.filter(status='Açık').count()
     close = problems.filter(status='Kapalı').count()
 
-    context = {'problems':problems, 'callcenters':callcenters, 'total_callcenters':total_callcenters,'total_problems':total_problems,'open':open,'close':close}
+    problem_filter = ProblemFilter(request.GET, queryset=problems)
+    problems = problem_filter.qs
+
+    context = {'problems':problems, 'users':users, 'total_users':total_users,'total_problems':total_problems,'open':open,'close':close, 'problem_filter':problem_filter}
 
     return render(request, 'base/dashboard.html', context)
 
 def userPage(request):
-    context = {}
+    user = request.user
+    problems = user.problem_set.all()
+    form = ProblemForm()
+
+    if request.method == 'POST':
+        form = ProblemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('user')
+
+    context = {'problems':problems, 'user':user, 'form':form}
     return render(request, 'base/user.html', context)
 
 def category(request):
     categories = Category.objects.all()
-    context = {'categories' : categories}
+    form = CategoryForm()
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Yeni kategori açıldı')
+            return redirect('category')
+
+    context = {'categories' : categories, 'form':form}
 
     return render(request, 'base/category.html', context)
 
-def callCenter(request, pk_test):
-    callcenter = CallCenter.objects.get(id=pk_test)
+def deleteCategory(request ,pk):
+    category = Category.objects.get(id=pk)
 
-    problems = callcenter.problem_set.all()
-    problem_count = problems.count()
+    if request.method == 'POST':
+        category.delete()
+        return redirect('category')
 
-    context = {'callcenter':callcenter, 'problems':problems, 'problem_count':problem_count}
-    return render(request, 'base/callcenter.html', context)
+    context= {'item':category}
+    return render(request, 'base/delete_category.html', context)
+
+def updateProblem(request,pk):
+    problem = Problem.objects.get(id=pk)
+    form = ProblemForm(instance=problem)
+
+    if request.method == 'POST':
+        form = ProblemForm(request.POST, instance=problem)
+        if form.is_valid:
+            form.save()
+            return redirect('/')
+
+    context = {'form':form}
+    return render(request, 'base/update_problem.html', context)
+
+
+
 

@@ -1,2 +1,29 @@
-<h1>Merhaba, {{request.user}}</h1>
-<span><a href="{% url 'logout' %}">Çıkış</a></span>
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary" style="background-color: rgb(35, 62, 85);">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img class="img-fluid pb-1" style="width: 100px; height: 35px" src={% static "images/logo.png" %} alt="logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse mt-2" id="navbarNav">
+            <ul class="navbar-nav me-auto p-2 mb-lg-0">
+                {% if request.user.is_staff %}
+                <li class="nav-item ps-2">
+                    <a class="nav-link active" aria-current="page" href={% url 'home' %}>Kontrol Paneli</a>
+                </li>
+                <li class="nav-item ps-2">
+                    <a class="nav-link" href={% url 'category'%}>Kategoriler</a>
+                </li> 
+                <li class="nav-item ps-2">
+                    <a class="nav-link" href={% url 'alluser'%}>Kullanıcılar</a>
+                </li>
+                {% endif %}              
+            </ul>
+            <hr style="color: darkgoldenrod;">
+            <span class="navbar-text p-2">
+                Merhaba, {{request.user}}
+            </span>
+            <button class="btn btn-sm btn-outline-danger ms-3 py-0 px-3 py-0 " type="button"><a style='text-decoration: none'href="{% url 'logout' %}">Çıkış</a></button>
+        </div>
+    </div>
+</nav>

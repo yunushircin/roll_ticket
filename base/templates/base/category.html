@@ -1,9 +1,62 @@
 {% extends 'base/main.html' %}
 
 {% block content %}
+<br>
+<div class="container">
+    <br>
+    <br>
+   <div class="row">
+        <div class="col-lg-6">
+            <div class="card card-body p-4" style="height: 300px;">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-2 p-2 d-grid">
+                        <textarea class="form-control" name="name" id="exampleFormControlTextarea1" rows="5" placeholder="Yeni kategori giriniz." style="height: 132px; resize: none;" required ></textarea>
+                    </div>
+                    <div class="mb-2 p-2 d-grid">
+                        <button class="btn btn-primary" type="submit" name="Kategori Oluştur">Kategori Oluştur</button>
+                    </div>
+                    <div class="mb-2 p-2 d-grid">
+                        {% for messages in messages%}
+							<p id='messages' style="color:green">{{messages}}</p>
+						{% endfor %}
+                    </div>
+                    
+                </form>
+                
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card card-body" style="height: 300px;">
+                <div class=" card card-body overflow-auto pt-0 border-0">
+                    <table class="table table-striped" id="myTable">
+                        <thead class="position-sticky top-0" style="background-color:rgb(189, 205, 214);">
+                            <tr>
+                                <th scope="col" style="width: 2%"></th>
+                                <th scope="col">Kategoriler</th>
+                                <th scope="col" style="width: 10%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in categories %}
+                                <tr>
+                                    <td scope="row">1</td>
+                                    <td>
+                                        {{category.name}}
+                                    </td>
+                                    <td>
+                                        <a class= "btn btn-sm btn-danger" href="{% url 'delete_category' category.id %}">Sil</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
 
-    {% for category in categories %}
-        <h1>{{category.name}}</h1>
-    {% endfor %}
-
-{% endblock content %}
+{% endblock %}

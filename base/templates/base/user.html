@@ -1,1 +1,78 @@
-<h1>Kullanıcı</h1>
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+        
+    <br>
+    <div class="container">
+        {% include 'base/add_problem.html' %}
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <div class="row px-3">
+                        <div class="col-md-5 form-floating my-2">
+                            <form action="">
+                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" required>
+                                    <option selected>Tümü</option>
+                                    <option value="1">Gelenler</option>
+                                    <option value="2">Gönderilenler</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="col-md-5 form-floating my-2">
+                            <form action="">
+                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" required>
+                                    <option selected>Durum</option>
+                                    <option value="1">Aktif</option>
+                                    <option value="2">Pasif</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="col-md-2 form-floating my-2">
+                            <form action="">
+                                <a class="btn btn-primary btn-sm d-grid pt-1" href="#" role="button">Ara</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-body" style="height: 700px">
+                    <div class=" card card-body overflow-auto pt-0 border-0">
+                        <table class="table table-striped">
+                            <thead class="position-sticky top-0" style="background-color:rgb(189, 205, 214);">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Oluşturan</th>
+                                    <th scope="col">Kategori</th>
+                                    <th scope="col">Kullanıcı Adı</th>
+                                    <th scope="col">M. Temsilcisi</th>
+                                    <th scope="col">Tarih</th>
+                                    <th scope="col">Açıklama</th>
+                                    <th scope="col">Durum</th>
+                                    <th scope="col">Düzenle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for problem in problems %}
+                                    <tr>
+                                        <td scope="row" style="width: 2%">1</td>
+                                        <td>{{problem.user}}</td>
+                                        <td style="max-width: 250px;">{{problem.category}}</td>
+                                        <td style="min-width: 115px;">{{problem.customer_name}}</td>
+                                        <td style="min-width: 116px;">{{problem.user}}</td>
+                                        <td>{{problem.date_created}}</td>
+                                        <td style=" min-width: 250px;"><textarea class="form-control" id="floatingTextarea"readonly>{{problem.description}}</textarea></td>
+                                        <td>{{problem.status}}</td>
+                                        <td><a class="btn btn-primary" href="{% url 'update_problem' problem.id %}">Güncelle</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+{% endblock content %}
