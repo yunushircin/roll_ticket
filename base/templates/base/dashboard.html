@@ -42,7 +42,7 @@
                         <thead class="position-sticky top-0" style="background-color:rgb(189, 205, 214);">
                             
                             <tr>
-                                <th scope="col"></th>
+                                <th scope="col">#</th>
                                 <th scope="col">Personel</th>
                                 <th scope="col">Kategori</th>
                                 <th scope="col">Kullanıcı Adı</th>
@@ -54,7 +54,7 @@
                         <tbody>
                             {% for problem in problems %}
                                 <tr>
-                                    <td scope="row" style="width: 2%">1</td>
+                                    <td scope="row" style="width: 2%">{{forloop.counter}}</td>
                                     <td>{{problem.user}}</td>
                                     <td style="max-width: 300px;">{{problem.category}}</td>
                                     <td>{{problem.customer_name}}</td>

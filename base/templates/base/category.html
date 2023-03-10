@@ -32,7 +32,7 @@
                     <table class="table table-striped" id="myTable">
                         <thead class="position-sticky top-0" style="background-color:rgb(189, 205, 214);">
                             <tr>
-                                <th scope="col" style="width: 2%"></th>
+                                <th scope="col" style="width: 2%">#</th>
                                 <th scope="col">Kategoriler</th>
                                 <th scope="col" style="width: 10%;"></th>
                             </tr>
@@ -40,7 +40,7 @@
                         <tbody>
                             {% for category in categories %}
                                 <tr>
-                                    <td scope="row">1</td>
+                                    <td scope="row">{{forloop.counter}}</td>
                                     <td>
                                         {{category.name}}
                                     </td>

@@ -1,7 +1,6 @@
 {% extends 'base/main.html' %}
 
 {% block content %}
-<form action="" method="POST">
     <div class="alert alert-success container mt-4" role="alert">
         <div class="row">
             <div class="col-md-12">
@@ -16,6 +15,8 @@
                             <div class="col-md form-floating m-2 d-grid" style='height:50px'>
                                 <p>Kullanıcı</p>
                                 <div class="d-grid" style="height:50px">{{form.customer_name}}</div>
+
+                                <div class="d-grid invisible" style="height:50px">{{form.add_by}}</div>
                                 
                             </div>
                             <div class="col-md form-floating m-2 d-grid" style='height:50px'>
@@ -51,7 +52,6 @@
             </div>
         </div>
     </div>
-</form>
     
 
     

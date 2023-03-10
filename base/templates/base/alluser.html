@@ -37,7 +37,7 @@
                         <table class="table table-striped" id="myTable">
                             <thead class="position-sticky top-0" style="background-color:rgb(189, 205, 214);">
                                 <tr>
-                                    <th scope="col" style="width: 2%"></th>
+                                    <th scope="col" style="width: 2%">#</th>
                                     <th scope="col ps-1">Kullanıcı Adı</th>
                                     <th scope="col">Tarih</th>
                                     <th></th>
@@ -46,7 +46,7 @@
                             <tbody>
                                 {% for user in users %}
                                     <tr>
-                                        <td scope="row">1</td>
+                                        <td scope="row">{{forloop.counter}}</td>
                                         <td>{{user}}</td>
                                         <td>{{user.date_joined}}</td>
                                         <td>
