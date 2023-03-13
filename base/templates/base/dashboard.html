@@ -58,7 +58,7 @@
                                     <td>{{problem.user}}</td>
                                     <td style="max-width: 300px;">{{problem.category}}</td>
                                     <td>{{problem.customer_name}}</td>
-                                    <td>{{problem.date_created}}</td>
+                                    <td>{{problem.date_created|date:"j F Y"}}</td>
                                     <td style="min-width: 300px;"><textarea class="form-control" id="floatingTextarea"readonly>{{problem.description}}</textarea></td>
                                     <td>{{problem.status}}</td>
                                 </tr>

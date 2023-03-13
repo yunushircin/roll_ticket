@@ -50,7 +50,7 @@
                                         <td style="max-width: 250px;">{{problem.category}}</td>
                                         <td style="min-width: 115px;">{{problem.customer_name}}</td>
                                         <td style="min-width: 116px;">{{problem.user.username}}</td>
-                                        <td>{{problem.date_created}}</td>
+                                        <td>{{problem.date_created|date:"j F Y"}}</td>
                                         <td style=" min-width: 250px;"><textarea class="form-control" id="floatingTextarea"readonly>{{problem.description}}</textarea></td>
                                         <td>{{problem.status}}</td>
                                         <td><a class="btn btn-primary" href="{% url 'update_problem' problem.id %}">Güncelle</a></td>

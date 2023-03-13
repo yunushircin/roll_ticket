@@ -13,6 +13,8 @@ class Problem(models.Model):
             ('Açık', 'Açık'), 
             ('Kapalı', 'Kapalı')
             )
+    class Meta:
+        ordering = ['-date_created']
     
     add_by = models.CharField(max_length=20,null=True)
     customer_name = models.CharField(max_length=20,null=True)

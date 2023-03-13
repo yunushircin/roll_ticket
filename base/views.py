@@ -147,7 +147,8 @@ def notification_read(request,notification_id):
     
     # Bildirimi işaretle
     notification.read = True
-    notification.save()
+    notification.delete()
+    # notification.save()
     
     # Kullanıcıyı bildirimler sayfasına yönlendir
     return redirect('notification')
