@@ -23,8 +23,20 @@
             <span class="navbar-text p-2">
                 Merhaba, {{request.user}}
             </span>
-            <button class="btn btn-sm btn-outline-danger ms-3 py-0 px-3 py-0"><i class="fa-solid fa-bell"></i></button>
-            <button class="btn btn-sm btn-outline-danger ms-3 py-0 px-3 py-0 " type="button"><a style='text-decoration: none'href="{% url 'logout' %}">Çıkış</a></button>
+
+            {% if request.user.is_staff == False %}
+            <a class="link-white ps-3 me-4" href="{% url 'notification' %}" role="button" aria-expanded="false">
+                <i class="fa-solid fa-bell text-white" style="font-size:20px"></i>
+                {% if unread_notification != 0 %}
+                    <span class="badge rounded-pill badge-notification bg-danger">{{unread_notification}}</span>
+                {% endif %}
+            </a>
+            {% endif %}
+            <a class="btn btn-danger" href="{% url 'logout' %}" role="button">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Çıkış
+            </a>
+            
         </div>
     </div>
 </nav>

@@ -7,30 +7,27 @@
     <div class="container">
 
         {% include 'base/status.html' %}
-        <a class="btn btn-danger" href="{% url 'notification' %}">Bildirim</a>
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-md-12">
-                <div class="card-header">
-                    <form action="" method="GET">
-                        <div class="row px-3">
-                            <div class="col-lg-2 my-2 col-md d-grid">
-                                {{problem_filter.form.status}}
-                            </div>
-                            <div class="col-lg-2 my-2 col-md d-grid">
-                                <button class="btn btn-primary" type="submit" name="Submit">Filtrele</button>
-                            </div>
-                            <div class="my-2 col-md d-grid justify-content-end">
-                                <a class="btn btn-danger" href="{% url 'add_problem' %}">Problem Ekle</a>
-                            </div>
-                            
-                        </div>
-                        <div class="row">
-                            
-                        </div>
-                    </form>
-                </div>
                 <div class="card card-body" style="height: 700px">
-                    <div class=" card card-body overflow-auto pt-0 border-0">
+                    <div class="overflow-auto pt-0 border-0">
+                        <form action="" method="GET" class="mb-3">
+                            <div class="row">
+                                <div class="col-lg-2 my-2 col-md d-grid">
+                                    {{problem_filter.form.status}}
+                                </div>
+                                <div class="col-lg-2 my-2 col-md d-grid">
+                                    <button class="btn btn-primary" type="submit" name="Submit">Filtrele</button>
+                                </div>
+                                <div class="my-2 col-md d-grid justify-content-end">
+                                    <a class="btn btn-danger" href="{% url 'add_problem' %}">Problem Ekle</a>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                
+                            </div>
+                        </form>
                         <table class="table table-striped">
                             <thead class="position-sticky top-0" style="background-color:rgb(189, 205, 214);">
                                 <tr>

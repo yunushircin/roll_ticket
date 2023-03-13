@@ -2,24 +2,43 @@
 
 
 {% block content %}
-  <h1>Bildirimler</h1>
-  {% if unread_notification > 0 %}
-    <p>{{ unread_notification }} okunmamış bildiriminiz var.</p>
-  {% endif %}
-  {% if unread_notification == 0 %}
-    <p>{{ unread_notification }} bildiriminiz var</p>
-  {% endif %}
-  <ul>
-    {% for notification in notifications %}
-      <li{% if not notification.read %} class="unread"{% endif %}>
-        {{ notification.message }} <span class="date">{{ notification.date_created|date }}</span>
-        {% if not notification.read %}
-          <form action="{% url 'notification_read' notification.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Okundu olarak işaretle</button>
-          </form>
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+
+<br>
+<br>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-body overflow-auto" style="height: 700px">
+              {% if unread_notification > 0 %}
+                <table class="table table-hover">
+                    <tbody>
+                      {% for notification in notifications %}
+                        <tr {% if not notification.read %} class="unread"{% endif %}>
+                            <td style="width: 60%;">{{ notification.message }}</td>
+                            <td scope="row" style="width: 20%;" class="date">{{ notification.date_created|date }}</td>
+                            <td style="width: 20%;">
+                              {% if not notification.read %}
+                                <div>
+                                  <form action="{% url 'notification_read' notification.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-success py-0">Onayla</button>
+                                  </form>
+                                </div>
+                              {% endif %}
+                            </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+              {% endif %}
+              {% if unread_notification == 0 %}
+                <p>Okunmamış Bildiriminiz Yok</p>
+              {% endif %}
+            </div>           
+        </div>
+    </div>
+</div>
+<br>
 {% endblock %}
+
+
